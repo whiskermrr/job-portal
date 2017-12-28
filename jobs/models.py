@@ -21,7 +21,7 @@ class JobOffer(models.Model):
         ('Other', 'other'),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    industry = models.CharField(choices=INDUSTRY_TYPES)
+    industry = models.CharField(choices=INDUSTRY_TYPES, max_length=50)
     avatar = models.ImageField(upload_to='media/avatars')
     title = models.CharField(max_length=70)
     aboutUs = models.CharField(max_length=2000)
@@ -63,7 +63,7 @@ class JobApplication(models.Model):
         ('Engineer', 'engineer'),
         ('Other', 'other'),
     )
-    education = models.CharField(choices=EDUCATION_TYPES)
+    education = models.CharField(choices=EDUCATION_TYPES, max_length=50)
     placeOfResidence = models.CharField(max_length=120)
     aboutYou = models.CharField(max_length=1000)
 
@@ -73,7 +73,7 @@ class JobApplication(models.Model):
         ('Working - Other industry', 'working - other industry'),
         ('Unemployed', 'unemployed')
     )
-    currentStatus = models.CharField(choices=STATUS_TYPES)
+    currentStatus = models.CharField(choices=STATUS_TYPES, max_length=50)
     languages = models.CharField(max_length=100)
     experience = models.CharField(max_length=1000)
     hobby = models.CharField(max_length=300)

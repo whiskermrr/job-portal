@@ -32,13 +32,20 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 
+    #my apps
     'jobs',
+
+    # 3th part apps
+    'registration',
+
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
