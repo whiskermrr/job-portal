@@ -4,11 +4,22 @@
     {% load staticfiles %}
     <meta charset="UTF-8">
     <title>{% block title %} Jobs {% endblock %}</title>
-    {% include 'booking/bootstrap_css.html' %}
+    {% include 'jobs/bootstrap_css.html' %}
+
+    <style>
+        {% block style %}
+            .navbar-inverse
+            {
+                background-color: #003580;
+            }
+        {% endblock %}
+    </style>
 
 
 </head>
 <body>
+
+    {% include 'jobs/navbar.html' %}
 
     <div class="container">
 
