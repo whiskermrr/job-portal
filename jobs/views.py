@@ -12,7 +12,11 @@ def user_profile(request, username):
 
 
 def job_offers(request):
-    return render(request, 'jobs/index.html', {})
+    offers = JobOffer.objects.all().order_by('-created_date')
+    context = {
+        'offers': offers,
+    }
+    return render(request, 'jobs/offers.html', context)
 
 
 

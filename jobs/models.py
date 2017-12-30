@@ -24,6 +24,7 @@ class JobOffer(models.Model):
     industry = models.CharField(choices=INDUSTRY_TYPES, max_length=50)
     avatar = models.ImageField(upload_to='media/avatars')
     title = models.CharField(max_length=70)
+    companyName = models.CharField(max_length=70)
     aboutUs = models.CharField(max_length=2000)
     requirements = models.CharField(max_length=1000)
     whatWeOffer = models.CharField(max_length=1000)
@@ -31,6 +32,9 @@ class JobOffer(models.Model):
     salary = models.PositiveIntegerField(validators=[MinValueValidator(1)], blank=True, null=True)
     created_date = models.DateTimeField(auto_now=True)
     location = models.CharField(max_length=200)
+
+    def __str__(self):
+        return "{}".format(self.created_date)
 
 
 

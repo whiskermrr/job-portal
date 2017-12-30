@@ -8,7 +8,7 @@ class JobOfferForm(forms.ModelForm):
 
     class Meta:
         model = JobOffer
-        fields = ['industry', 'avatar', 'title', 'aboutUs', 'jobDescription', 'requirements',
+        fields = ['industry', 'avatar', 'title', 'companyName', 'aboutUs', 'jobDescription', 'requirements',
                   'whatWeOffer', 'salary', 'location',]
 
         widgets = {
@@ -21,6 +21,7 @@ class JobOfferForm(forms.ModelForm):
         labels = {
             'avatar': _('Picture of Your Company'),
             'title': _('Title'),
+            'companyName': _('Company Name'),
             'aboutUs': _('About Your Company'),
             'jobDescription': _('Description of the Job'),
             'requirements': _('Requirements'),
