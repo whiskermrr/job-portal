@@ -48,3 +48,22 @@ def job_offer_add(request):
     }
     return render(request, 'jobs/job_offer_add.html', context)
 
+
+
+def offer_detail(request, offer_id):
+    offer = get_object_or_404(JobOffer, id=offer_id)
+    requirements = offer.requirements.rstrip().split('-')
+    requirements = filter(None, requirements)
+    whatWeOffer = offer.whatWeOffer.rstrip().split('-')
+    whatWeOffer = filter(None, whatWeOffer)
+    jobDescription = offer.jobDescription.rstrip().split('-')
+    jobDescription = filter(None, jobDescription)
+    context = {
+        'offer': offer,
+        'requirements': requirements,
+        'whatWeOffer': whatWeOffer,
+        'jobDescription': jobDescription,
+    }
+
+
+    return render(request, 'jobs/offer_detail.html', context)

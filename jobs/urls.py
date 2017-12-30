@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^users/(?P<username>\w+)/$', views.user_profile, name='user_profile'),
     url(r'^offers/$', views.job_offers, name='job_offers'),
     url(r'offers/add/$', views.job_offer_add, name='job_offer_add'),
+    url(r'offers/(?P<offer_id>[0-9]+)/$', views.offer_detail, name='offer_detail'),
 
 ]
