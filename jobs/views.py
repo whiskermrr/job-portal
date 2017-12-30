@@ -58,11 +58,13 @@ def offer_detail(request, offer_id):
     whatWeOffer = filter(None, whatWeOffer)
     jobDescription = offer.jobDescription.rstrip().split('-')
     jobDescription = filter(None, jobDescription)
+    aboutUs = offer.aboutUs.splitlines()
     context = {
         'offer': offer,
         'requirements': requirements,
         'whatWeOffer': whatWeOffer,
         'jobDescription': jobDescription,
+        'aboutUs': aboutUs,
     }
 
 

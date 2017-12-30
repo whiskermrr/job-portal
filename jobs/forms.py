@@ -37,7 +37,7 @@ class JobOfferForm(forms.ModelForm):
             'jobDescription': _('responsibilities, working hours etc.'),
             'requirements': _('what skills candidate should have (new line is new point)'),
             'whatWeOffer': _('health care, free lunch etc. (new line is new point)'),
-            'salary': _('monthly'),
+            'salary': _('monthly (in $)'),
             'location': _('city, street (search sensitive)'),
         }
 
