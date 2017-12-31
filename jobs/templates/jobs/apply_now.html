@@ -13,8 +13,9 @@
 
                 <form id="room_form" method="post" action=""
                       enctype="multipart/form-data">
-                    {{ applyForm|crispy }}
-
+                    {% for field in applyForm %}
+                            {{ field|as_crispy_field }}
+                    {% endfor %}
                     {% csrf_token %}
                     <br>
                     <div style="text-align:center;">

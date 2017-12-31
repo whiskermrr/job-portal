@@ -15,4 +15,6 @@ urlpatterns = [
     url(r'^users/(?P<username>\w+)/offers', views.user_offers, name='user_offers'),
     url(r'^users/(?P<username>\w+)/candidates', views.candidates, name='candidates'),
     url(r'applications/(?P<application_id>[0-9]+)/$', views.application_detail, name='application_detail'),
+    url(r'offers/(?P<offer_id>[0-9]+)/delete/$', views.offer_delete, name='offer_delete'),
+    url(r'offers/(?P<offer_id>[0-9]+)/update/$', views.offer_update, name='offer_update'),
 ]

@@ -71,7 +71,7 @@ class JobApplication(models.Model):
     )
     education = models.CharField(choices=EDUCATION_TYPES, max_length=50, blank=True, null=True)
     placeOfResidence = models.CharField(max_length=120, blank=True, null=True)
-    aboutYou = models.CharField(max_length=1000, blank=True, null=True)
+    aboutYou = models.CharField(max_length=2000, blank=True, null=True)
 
     STATUS_TYPES = (
         ('Student', 'Student'),

@@ -97,3 +97,13 @@ class JobApplyForm(forms.ModelForm):
             'aboutYou': Textarea(attrs={'cols': 80, 'rows': 10}),
             'hobby': Textarea(attrs={'cols': 80, 'rows': 10}),
         }
+
+    def __init__(self, *args, **kwargs):
+        extra = kwargs.pop('extra')
+        super(JobApplyForm, self).__init__(*args, **kwargs)
+
+        if extra:
+            for field, value in extra.items():
+                if not value:
+                    self.fields['%s' % field].widget = forms.HiddenInput()
+
