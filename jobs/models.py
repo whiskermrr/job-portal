@@ -5,20 +5,20 @@ from django.db import models
 
 class JobOffer(models.Model):
     INDUSTRY_TYPES = (
-        ('accounting', 'Accounting'),
-        ('factory' , 'Factory'),
-        ('banking', 'Banking'),
-        ('marketing', 'Marketing'),
-        ('IT - software development', 'IT - Software Development'),
-        ('IT - administration', "IT - Administration"),
-        ('transport', 'Transport'),
-        ('medical', 'Medical'),
-        ('education', 'Education'),
-        ('hospitality', 'Hospitality'),
-        ('real estate', 'Real Estate'),
-        ('production', 'Production'),
+        ('Accounting', 'Accounting'),
+        ('Factory' , 'Factory'),
+        ('Banking', 'Banking'),
+        ('Marketing', 'Marketing'),
+        ('IT - Software Development', 'IT - Software Development'),
+        ('IT - Administration', "IT - Administration"),
+        ('Transport', 'Transport'),
+        ('Medical', 'Medical'),
+        ('Education', 'Education'),
+        ('Hospitality', 'Hospitality'),
+        ('Real Estate', 'Real Estate'),
+        ('Production', 'Production'),
         ('Engineering', 'Engineering'),
-        ('other', 'Other'),
+        ('Other', 'Other'),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     industry = models.CharField(choices=INDUSTRY_TYPES, max_length=50)
@@ -59,28 +59,28 @@ class JobApplication(models.Model):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=50)
     email = models.EmailField(max_length=100)
-    picture = models.ImageField(upload_to='media/avatars')
+    picture = models.ImageField(upload_to='media/avatars', blank=True, null=True)
     age = models.PositiveIntegerField(validators=[MinValueValidator(1)], blank=True, null=True)
 
     EDUCATION_TYPES = (
-        ('secondary education', 'Secondary Education'),
-        ('bachelor degree', 'Bachelor degree'),
-        ('master degree', 'Master Degree'),
-        ('engineer', 'Engineer'),
-        ('other', 'Other'),
+        ('Secondary Education', 'Secondary Education'),
+        ('Bachelor degree', 'Bachelor degree'),
+        ('Master Degree', 'Master Degree'),
+        ('Engineer', 'Engineer'),
+        ('Other', 'Other'),
     )
     education = models.CharField(choices=EDUCATION_TYPES, max_length=50, blank=True, null=True)
     placeOfResidence = models.CharField(max_length=120, blank=True, null=True)
     aboutYou = models.CharField(max_length=1000, blank=True, null=True)
 
     STATUS_TYPES = (
-        ('student', 'Student'),
-        ('working - the same industry', 'Working - the same industry'),
-        ('working - other industry', 'Working - other industry'),
-        ('unemployed', 'Unemployed')
+        ('Student', 'Student'),
+        ('Working - the same industry', 'Working - the same industry'),
+        ('Working - other industry', 'Working - other industry'),
+        ('Unemployed', 'Unemployed')
     )
     currentStatus = models.CharField(choices=STATUS_TYPES, max_length=50, blank=True, null=True)
     languages = models.CharField(max_length=100, blank=True, null=True)
-    experience = models.CharField(max_length=1000, blank=True, null=True)
-    hobby = models.CharField(max_length=300, blank=True, null=True)
+    experience = models.CharField(max_length=2000, blank=True, null=True)
+    hobby = models.CharField(max_length=1000, blank=True, null=True)
     created_date = models.DateTimeField(auto_now=True)

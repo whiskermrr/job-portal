@@ -42,7 +42,7 @@
                                     <span class="desc"><i class="glyphicon glyphicon-calendar"></i> Sent: {{ application.created_date }}</span>
                                     <br>
                                     <br>
-                                    <span class="info-btn"><a class="btn btn-lg btn-primary" href="#" role="button">View Application</a></span>
+                                    <span class="info-btn"><a class="btn btn-lg btn-primary" href="{% url 'jobs:application_detail' application.id %}" role="button">View Application</a></span>
                                 </div>
                             </li>
                         {% endfor %}

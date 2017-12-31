@@ -12,6 +12,20 @@ def user_profile(request, username):
     return render(request, 'jobs/user_profile.html', {'user': user})
 
 
+def application_detail(request, application_id):
+    application = get_object_or_404(JobApplication, id=application_id)
+    if request.user.is_authenticated() and (application.job_offer.user == request.user or application.user == request.user):
+        languages = application.languages.rstrip().split('-')
+        languages =  filter(None, languages)
+        context = {
+            'languages': languages,
+            'application': application,
+        }
+        return render(request, 'jobs/application_detail.html', context)
+
+    return redirect('jobs:index')
+
+
 def user_applications(request, username):
     applications = []
     title = 'Your Applications'
