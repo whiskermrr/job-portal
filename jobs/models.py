@@ -83,3 +83,4 @@ class JobApplication(models.Model):
     languages = models.CharField(max_length=100, blank=True, null=True)
     experience = models.CharField(max_length=1000, blank=True, null=True)
     hobby = models.CharField(max_length=300, blank=True, null=True)
+    created_date = models.DateTimeField(auto_now=True)

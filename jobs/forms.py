@@ -61,3 +61,39 @@ class ApplicationForm(forms.ModelForm):
             'formExperience': _('Previous experience of Candidate.'),
             'formHobby': _('Hobby of Candidate.'),
         }
+
+
+
+class JobApplyForm(forms.ModelForm):
+
+    class Meta:
+        model = JobApplication
+        fields = ['name', 'surname', 'email', 'picture', 'age', 'education', 'placeOfResidence',
+                  'currentStatus', 'aboutYou', 'languages', 'experience', 'hobby',]
+
+        labels = {
+            'name': _('Name'),
+            'surname': _('Last Name'),
+            'email': _('Contact Email'),
+            'picture': _('Picture of Yourself'),
+            'age': _('Your Age'),
+            'education': _('Your Education'),
+            'placeOfResidence': _('Place of Residence'),
+            'currentStatus': _('Your current work status'),
+            'aboutYou': _('Tell us something about Yourself'),
+            'languages': _('Languages you know'),
+            'experience': _('Your experience'),
+            'hobby': _('What is your hobby?'),
+        }
+
+        help_texts = {
+            'experience': _('Your skills and previous workplace.'),
+            'languages': _('best pattern: "-language(level)" + new line'),
+        }
+
+        widgets = {
+            'experience': Textarea(attrs={'cols': 80, 'rows': 10}),
+            'languages': Textarea(attrs={'cols': 80, 'rows': 5}),
+            'aboutYou': Textarea(attrs={'cols': 80, 'rows': 10}),
+            'hobby': Textarea(attrs={'cols': 80, 'rows': 10}),
+        }

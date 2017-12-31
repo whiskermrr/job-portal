@@ -8,7 +8,42 @@ def index(request):
 
 
 def user_profile(request, username):
-    return render(request, 'jobs/index.html', {})
+    user = User.objects.get(username=username)
+    return render(request, 'jobs/user_profile.html', {'user': user})
+
+
+def user_applications(request, username):
+    applications = []
+    title = 'Your Applications'
+    if request.user.is_authenticated():
+        applications = JobApplication.objects.filter(user=request.user).order_by('-created_date')
+
+    context = {
+        'applications': applications,
+        'title': title,
+    }
+    return render(request, 'jobs/user_applications.html', context)
+
+
+def candidates(request, username):
+    applications = []
+    title = 'Your Candidates'
+    if request.user.is_authenticated():
+        applications = JobApplication.objects.filter(job_offer__user=request.user).order_by('-created_date')
+
+    context = {
+        'applications': applications,
+        'title': title,
+    }
+    return render(request, 'jobs/candidates.html', context)
+
+
+def user_offers(request, username):
+    offers = []
+    if request.user.is_authenticated():
+        offers = JobOffer.objects.filter(user=request.user).order_by('-created_date')
+
+    return render(request, 'jobs/user_offers.html', {'offers': offers})
 
 
 def job_offers(request):
@@ -66,6 +101,31 @@ def offer_detail(request, offer_id):
         'jobDescription': jobDescription,
         'aboutUs': aboutUs,
     }
-
-
     return render(request, 'jobs/offer_detail.html', context)
+
+
+
+def job_apply(request, offer_id):
+    title = ""
+    offer = get_object_or_404(JobOffer, id=offer_id)
+    requirements = get_object_or_404(ApplicationRequirements, job_offer_id=offer_id)
+    if request.method == 'POST':
+        applyForm = JobApplyForm(request.POST, request.FILES)
+        if applyForm.is_valid():
+            apply_form = applyForm.save(commit=False)
+            apply_form.user = request.user
+            apply_form.job_offer = offer
+            apply_form.save()
+
+            return redirect('jobs:user_profile', username=request.user.username)
+        else:
+            title = 'Invalid Form'
+
+    applyForm = JobApplyForm()
+    context = {
+        'offer': offer,
+        'applyForm': applyForm,
+        'title': title,
+        'requirements': requirements,
+    }
+    return render(request, 'jobs/apply_now.html', context)
