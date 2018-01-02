@@ -22,7 +22,7 @@
         width: 90%;
         background-color: #4CAF50;
         color: white;
-        padding: 14px 20px;
+        padding: 12px 20px;
         margin: 8px 0;
         border: none;
         border-radius: 4px;
@@ -42,6 +42,7 @@
                 <input class="custom-input" type="text" id="ftitle" name="title" value="{{ request.GET.title }}" placeholder="title"><br>
                 <label for="flocation">Location</label>
                 <input class="custom-input" type="text" id="flocation" name="location" value="{{ request.GET.location }}" placeholder="location"><br>
+                <label for="industry">Industry</label>
                 <select class="form-control" id="industry" name="industry">
                         <option></option>
                     {% for industry in industries %}
@@ -50,6 +51,14 @@
                 </select>
               <input class="custom-button" type="submit" value="Search">
             </form>
+              <hr/>
+              <p style="color: #3B5998;">Looking for an Employee?</p>
+              {% if request.user.is_authenticated %}
+                <a class="btn btn-lg btn-primary" href="{% url 'jobs:job_offer_add' %}" role="button">Add Offer</a>
+              {% else %}
+                <p style="color: #3B5998;">Join Us!</p>
+                <a href="{% url 'registration_register' %}">Register</a>
+              {% endif %}
           </nav>
         </div>
 

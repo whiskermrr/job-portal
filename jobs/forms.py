@@ -34,9 +34,9 @@ class JobOfferForm(forms.ModelForm):
             'avatar': _('best resolution: 16:9'),
             'title': _('job name (search sensitive)'),
             'aboutUs': _('company name, people, what is your products etc.'),
-            'jobDescription': _('responsibilities, working hours etc.'),
-            'requirements': _('what skills candidate should have (new line is new point)'),
-            'whatWeOffer': _('health care, free lunch etc. (new line is new point)'),
+            'jobDescription': _('responsibilities, working hours etc. ("-" is new point)'),
+            'requirements': _('what skills candidate should have ("-" is new point)'),
+            'whatWeOffer': _('health care, free lunch etc. ("-" is new point)'),
             'salary': _('monthly (in $)'),
             'location': _('city, street (search sensitive)'),
         }
