@@ -47,9 +47,6 @@
                     {% for industry in industries %}
                         <option value="{{ industry.0 }}">{{ industry.0 }}</option>
                     {% endfor %}
-                    {% if selected %}
-                    <option selected="selected">{{ selected }}</option>
-                    {% endif %}
                 </select>
               <input class="custom-button" type="submit" value="Search">
             </form>

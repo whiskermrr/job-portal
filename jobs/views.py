@@ -1,8 +1,5 @@
-from itertools import chain
-
 from django.db.models import Q
-from django.http import HttpResponse
-from django.shortcuts import render, redirect, get_object_or_404, render_to_response
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 
 
@@ -13,9 +10,7 @@ def index(request):
 
 
 def search(request):
-    #return HttpResponse('<h3>' + str(request.GET['title']) + str(request.GET['location']) + str(request.GET['industry']) + '<h3>')
     offers = None
-    selected = None
     title = 'Search for: '
     if (('title' in request.GET) and request.GET['title'].strip()) \
             or (('location' in request.GET) and request.GET['location'].strip()) \
@@ -24,7 +19,7 @@ def search(request):
         queryTitle = request.GET['title']
         queryLocation = request.GET['location']
         queryIndustry = request.GET['industry']
-        selected = queryIndustry
+        title += queryTitle + ' ' + queryLocation + ' ' + queryIndustry
 
         offers = JobOffer.objects.filter(
             Q(title__icontains=queryTitle) &
@@ -37,7 +32,6 @@ def search(request):
         'title': title,
         'offers': offers,
         'industries': industries,
-        'selected': selected,
     }
     return render(request, 'jobs/offers.html', context)
 
@@ -143,7 +137,6 @@ def job_offers(request):
     return render(request, 'jobs/offers.html', context)
 
 
-
 def job_offer_add(request):
     title = ""
     if request.method == 'POST':
@@ -171,7 +164,6 @@ def job_offer_add(request):
         'requirements': requirementsForm,
     }
     return render(request, 'jobs/job_offer_add.html', context)
-
 
 
 def offer_detail(request, offer_id):
