@@ -6,15 +6,61 @@
         color: #222222;
     }
 
+    .custom-input
+    {
+        width: 90%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .custom-button
+    {
+        width: 90%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
 {% endblock %}
 
 {% block content %}
 
     <div class="row">
-        <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+        <div class="col-sm-4 col-lg-3">
+          <nav class="navbar navbar-default navbar-fixed-side" style="text-align: center;">
+              <br>
+            <form role="search" method="get" action="{% url 'jobs:search' %}">
+                <label for="ftitle">Job Title</label>
+                <input class="custom-input" type="text" id="ftitle" name="title" value="{{ request.GET.title }}" placeholder="title"><br>
+                <label for="flocation">Location</label>
+                <input class="custom-input" type="text" id="flocation" name="location" value="{{ request.GET.location }}" placeholder="location"><br>
+                <select class="form-control" id="industry" name="industry">
+                        <option></option>
+                    {% for industry in industries %}
+                        <option value="{{ industry.0 }}">{{ industry.0 }}</option>
+                    {% endfor %}
+                    {% if selected %}
+                    <option selected="selected">{{ selected }}</option>
+                    {% endif %}
+                </select>
+              <input class="custom-button" type="submit" value="Search">
+            </form>
+          </nav>
+        </div>
+
+        <div class="col-sm-8 col-lg-9" style="text-align: center;">
 
             {% if offers %}
                 <h1>All Job Offers</h1>
+                <p>{{ title }}</p>
                 <br>
                 <ul class="event-list">
                     {% for offer in offers %}

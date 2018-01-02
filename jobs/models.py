@@ -23,7 +23,7 @@ class JobOffer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     industry = models.CharField(choices=INDUSTRY_TYPES, max_length=50)
     avatar = models.ImageField(upload_to='media/avatars')
-    title = models.CharField(max_length=70)
+    title = models.CharField(max_length=38)
     companyName = models.CharField(max_length=70)
     aboutUs = models.CharField(max_length=2000)
     requirements = models.CharField(max_length=1000)

@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'applications/(?P<application_id>[0-9]+)/$', views.application_detail, name='application_detail'),
     url(r'offers/(?P<offer_id>[0-9]+)/delete/$', views.offer_delete, name='offer_delete'),
     url(r'offers/(?P<offer_id>[0-9]+)/update/$', views.offer_update, name='offer_update'),
+    url(r'search/$', views.search, name='search'),
 ]

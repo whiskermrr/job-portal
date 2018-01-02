@@ -1,3 +1,7 @@
+from itertools import chain
+
+from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, render_to_response
 from .forms import *
 
@@ -5,6 +9,37 @@ from .forms import *
 
 def index(request):
     return render(request, 'jobs/index.html', {})
+
+
+
+def search(request):
+    #return HttpResponse('<h3>' + str(request.GET['title']) + str(request.GET['location']) + str(request.GET['industry']) + '<h3>')
+    offers = None
+    selected = None
+    title = 'Search for: '
+    if (('title' in request.GET) and request.GET['title'].strip()) \
+            or (('location' in request.GET) and request.GET['location'].strip()) \
+            or (('industry' in request.GET) and request.GET['industry'].strip()):
+
+        queryTitle = request.GET['title']
+        queryLocation = request.GET['location']
+        queryIndustry = request.GET['industry']
+        selected = queryIndustry
+
+        offers = JobOffer.objects.filter(
+            Q(title__icontains=queryTitle) &
+            Q(location__icontains=queryLocation) &
+            Q(industry__icontains=queryIndustry)
+        )
+
+    industries = JobOffer.INDUSTRY_TYPES
+    context = {
+        'title': title,
+        'offers': offers,
+        'industries': industries,
+        'selected': selected,
+    }
+    return render(request, 'jobs/offers.html', context)
 
 
 def user_profile(request, username):
@@ -100,8 +135,10 @@ def user_offers(request, username):
 
 def job_offers(request):
     offers = JobOffer.objects.all().order_by('-created_date')
+    industries = JobOffer.INDUSTRY_TYPES
     context = {
         'offers': offers,
+        'industries': industries,
     }
     return render(request, 'jobs/offers.html', context)
 
