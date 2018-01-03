@@ -17,6 +17,13 @@
         box-sizing: border-box;
     }
 
+    .custom-select
+    {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .custom-button
     {
         width: 90%;
@@ -43,7 +50,7 @@
                 <label for="flocation">Location</label>
                 <input class="custom-input" type="text" id="flocation" name="location" value="{{ request.GET.location }}" placeholder="location"><br>
                 <label for="industry">Industry</label>
-                <select class="form-control" id="industry" name="industry">
+                <select class="form-control custom-select" id="industry" name="industry">
                         <option></option>
                     {% for industry in industries %}
                         <option value="{{ industry.0 }}">{{ industry.0 }}</option>

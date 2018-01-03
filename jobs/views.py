@@ -114,8 +114,6 @@ def candidates(request, username):
         applications = JobApplication.objects.filter(job_offer__user=request.user).order_by('-created_date')
 
     paginator = Paginator(applications, 10)
-    page_var = 'page'
-    page = request.GET.get(page_var)
 
     try:
         applications = paginator.page('page')
@@ -136,8 +134,6 @@ def user_offers(request, username):
     if request.user.is_authenticated():
         offers = JobOffer.objects.filter(user=request.user).order_by('-created_date')
         paginator = Paginator(offers, 10)
-        page_var = 'page'
-        page = request.GET.get(page_var)
 
         try:
             offers = paginator.page('page')
@@ -152,10 +148,7 @@ def user_offers(request, username):
 def job_offers(request):
     offers = JobOffer.objects.all().order_by('-created_date')
     industries = JobOffer.INDUSTRY_TYPES
-
     paginator = Paginator(offers, 10)
-    page_var = 'page'
-    page = request.GET.get(page_var)
 
     try:
         offers = paginator.page('page')
