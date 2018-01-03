@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
@@ -112,6 +113,17 @@ def candidates(request, username):
     if request.user.is_authenticated():
         applications = JobApplication.objects.filter(job_offer__user=request.user).order_by('-created_date')
 
+    paginator = Paginator(applications, 10)
+    page_var = 'page'
+    page = request.GET.get(page_var)
+
+    try:
+        applications = paginator.page('page')
+    except PageNotAnInteger:
+        applications = paginator.page(1)
+    except EmptyPage:
+        applications = paginator.page(paginator.num_pages)
+
     context = {
         'applications': applications,
         'title': title,
@@ -123,6 +135,16 @@ def user_offers(request, username):
     offers = []
     if request.user.is_authenticated():
         offers = JobOffer.objects.filter(user=request.user).order_by('-created_date')
+        paginator = Paginator(offers, 10)
+        page_var = 'page'
+        page = request.GET.get(page_var)
+
+        try:
+            offers = paginator.page('page')
+        except PageNotAnInteger:
+            offers = paginator.page(1)
+        except EmptyPage:
+            offers = paginator.page(paginator.num_pages)
 
     return render(request, 'jobs/user_offers.html', {'offers': offers})
 
@@ -130,6 +152,18 @@ def user_offers(request, username):
 def job_offers(request):
     offers = JobOffer.objects.all().order_by('-created_date')
     industries = JobOffer.INDUSTRY_TYPES
+
+    paginator = Paginator(offers, 10)
+    page_var = 'page'
+    page = request.GET.get(page_var)
+
+    try:
+        offers = paginator.page('page')
+    except PageNotAnInteger:
+        offers = paginator.page(1)
+    except EmptyPage:
+        offers = paginator.page(paginator.num_pages)
+
     context = {
         'offers': offers,
         'industries': industries,
