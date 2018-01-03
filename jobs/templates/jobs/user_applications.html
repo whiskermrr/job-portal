@@ -15,6 +15,7 @@
 {% block content %}
 {{ block.super }}
 
+{% if applications %}
     <div class="row">
         <div class="col-sm-4 col-lg-3">
         </div>
@@ -22,7 +23,7 @@
             <div class="pagination">
                 <span class="step-links">
                     {% if applications.has_previous %}
-                    <a href="?{{ page_var }}={{ applications.previous_page_number }}">previous</a>
+                    <a href="?page={{ applications.previous_page_number }}">previous</a>
                     {% endif %}
 
                     <span class="current">
@@ -30,12 +31,13 @@
                     </span>
 
                     {% if applications.has_next %}
-                        <a href="?{{ page_var }}={{ applications.next_page_number }}">next</a>
+                        <a href="?page={{ applications.next_page_number }}">next</a>
                     {% endif %}
                 </span>
             </div>
         </div>
     </div>
+{% endif %}
 
 {% endblock %}
 

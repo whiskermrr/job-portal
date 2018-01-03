@@ -17,7 +17,7 @@
           <p><a href="{% url 'jobs:user_applications' request.user.username %}">Your Applications</a></p>
           <p><a href="{% url 'jobs:user_offers' request.user.username %}">Your Offers</a></p>
           <p><a href="{% url 'jobs:candidates' request.user.username %}">Your Candidates</a></p>
-          <p><a href="{% url 'auth_password_change' %}">Messages</a></p>
+          <p><a href="{% url 'jobs:user_conversations' request.user.username %}">Messages</a></p>
       </nav>
     </div>
     <div class="col-sm-8 col-lg-9" style="text-align: center;">

@@ -113,3 +113,9 @@ class ConversationForm(forms.ModelForm):
         model = Conversation
         fields = ['title']
 
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['content']
+

@@ -19,4 +19,7 @@ urlpatterns = [
     url(r'offers/(?P<offer_id>[0-9]+)/update/$', views.offer_update, name='offer_update'),
     url(r'search/$', views.search, name='search'),
     url(r'applications/(?P<application_id>[0-9]+)/create_conversation/$', views.create_conversation, name='create_conversation'),
+    url(r'^users/(?P<username>\w+)/conversations/$', views.user_conversations, name='user_conversations'),
+    url(r'^messages/(?P<conversation_id>[0-9]+)/delete$', views.conversation_delete, name='conversation_delete'),
+    url(r'^messages/(?P<conversation_id>[0-9]+)/$', views.conversation, name='conversation'),
 ]

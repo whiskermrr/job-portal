@@ -6,7 +6,24 @@ from .forms import *
 
 
 def index(request):
-    return render(request, 'jobs/index.html', {})
+    return render(request, 'jobs/index.html', {})\
+
+
+def post_message(request, conversation_id):
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            messageForm = MessageForm(request.POST)
+            conversation = get_object_or_404(Conversation, id=conversation_id)
+            if messageForm.is_valid():
+                message = messageForm.save(commit=False)
+                message.user = request.user
+                message.conversation = conversation
+                message.content = request.POST.get('content')
+                message.save()
+
+        return redirect('jobs:conversation', conversation_id=conversation_id)
+
+    return redirect('auth_login')
 
 
 def create_conversation(request, application_id):
@@ -20,7 +37,62 @@ def create_conversation(request, application_id):
             conversation.title = application.job_offer.title
             conversation.save()
 
-            return redirect('jobs:index')
+            return redirect('jobs:conversation', conversation_id=conversation.id)
+
+    return redirect('auth_login')
+
+
+def conversation(request, conversation_id):
+    if request.method == 'POST':
+        return post_message(request, conversation_id)
+
+    if request.user.is_authenticated():
+        conversation = get_object_or_404(Conversation, id=conversation_id)
+        if conversation.user_one == request.user or conversation.user_two == request.user:
+            conversations = Conversation.objects.filter(
+                Q(user_one=request.user) |
+                Q(user_two=request.user)
+            )
+            messages = Message.objects.filter(conversation_id=conversation.id)
+            paginator = Paginator(messages, 5)
+            page = request.GET.get('page')
+
+            try:
+                messages = paginator.page(page)
+            except PageNotAnInteger:
+                messages = paginator.page(1)
+            except EmptyPage:
+                messages = paginator.page(paginator.num_pages)
+
+            context = {
+                'messages': messages,
+                'conversation': conversation,
+                'conversations': conversations,
+            }
+            return render(request, 'jobs/conversation.html', context)
+
+    return redirect('auth_login')
+
+
+def conversation_delete(request, conversation_id):
+    if request.user.is_authenticated():
+        conversation = get_object_or_404(Conversation, id=conversation_id)
+        if conversation.user_one == request.user or conversation.user_two == request.user:
+            conversation.delete()
+            return redirect('jobs:user_conversations', username=request.user.username)
+
+    return redirect('auth_login')
+
+def user_conversations(request, username):
+    if request.user.is_authenticated():
+        conversations = Conversation.objects.filter(
+            Q(user_one=request.user) |
+            Q(user_two=request.user)
+        )
+        context = {
+            'conversations': conversations,
+        }
+        return render(request, 'jobs/user_conversations.html', context)
 
 
 
@@ -114,6 +186,16 @@ def user_applications(request, username):
     if request.user.is_authenticated():
         applications = JobApplication.objects.filter(user=request.user).order_by('-created_date')
 
+    paginator = Paginator(applications, 10)
+    page = request.GET.get('page')
+
+    try:
+        applications = paginator.page(page)
+    except PageNotAnInteger:
+        applications = paginator.page(1)
+    except EmptyPage:
+        applications = paginator.page(paginator.num_pages)
+
     context = {
         'applications': applications,
         'title': title,
@@ -128,9 +210,10 @@ def candidates(request, username):
         applications = JobApplication.objects.filter(job_offer__user=request.user).order_by('-created_date')
 
     paginator = Paginator(applications, 10)
+    page = request.GET.get('page')
 
     try:
-        applications = paginator.page('page')
+        applications = paginator.page(page)
     except PageNotAnInteger:
         applications = paginator.page(1)
     except EmptyPage:
@@ -148,9 +231,10 @@ def user_offers(request, username):
     if request.user.is_authenticated():
         offers = JobOffer.objects.filter(user=request.user).order_by('-created_date')
         paginator = Paginator(offers, 10)
+        page = request.GET.get('page')
 
         try:
-            offers = paginator.page('page')
+            offers = paginator.page(page)
         except PageNotAnInteger:
             offers = paginator.page(1)
         except EmptyPage:
@@ -163,9 +247,10 @@ def job_offers(request):
     offers = JobOffer.objects.all().order_by('-created_date')
     industries = JobOffer.INDUSTRY_TYPES
     paginator = Paginator(offers, 10)
+    page = request.GET.get('page')
 
     try:
-        offers = paginator.page('page')
+        offers = paginator.page(page)
     except PageNotAnInteger:
         offers = paginator.page(1)
     except EmptyPage:

@@ -6,6 +6,8 @@
         <list>
           <option value="jobs.models.JobApplication.objects" />
           <option value="jobs.models.JobOffer.objects" />
+          <option value="jobs.models.Conversation.objects" />
+          <option value="jobs.models.Message.objects" />
         </list>
       </option>
     </inspection_tool>

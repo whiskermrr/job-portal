@@ -95,26 +95,28 @@
         </div>
     </div>
 
-<div class="row">
-    <div class="col-sm-4 col-lg-3">
-    </div>
-    <div class="col-sm-8 col-lg-9" style="text-align: center;">
-        <div class="pagination">
-            <span class="step-links">
-                {% if offers.has_previous %}
-                <a href="?{{ page_var }}={{ offers.previous_page_number }}">previous</a>
-                {% endif %}
+{% if offers %}
+    <div class="row">
+        <div class="col-sm-4 col-lg-3">
+        </div>
+        <div class="col-sm-8 col-lg-9" style="text-align: center;">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if offers.has_previous %}
+                    <a href="?page={{ offers.previous_page_number }}">previous</a>
+                    {% endif %}
 
-                <span class="current">
-                    Page {{ offers.number }} of {{ offers.paginator.num_pages }}.
+                    <span class="current">
+                        Page {{ offers.number }} of {{ offers.paginator.num_pages }}.
+                    </span>
+
+                    {% if offers.has_next %}
+                        <a href="?page={{ offers.next_page_number }}">next</a>
+                    {% endif %}
                 </span>
-
-                {% if offers.has_next %}
-                    <a href="?{{ page_var }}={{ offers.next_page_number }}">next</a>
-                {% endif %}
-            </span>
+            </div>
         </div>
     </div>
-</div>
+{% endif %}
 
 {% endblock %}
