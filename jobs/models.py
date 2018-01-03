@@ -84,3 +84,16 @@ class JobApplication(models.Model):
     experience = models.CharField(max_length=2000, blank=True, null=True)
     hobby = models.CharField(max_length=1000, blank=True, null=True)
     created_date = models.DateTimeField(auto_now=True)
+
+
+class Conversation(models.Model):
+    user_one = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='user_one')
+    user_two = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='user_two')
+    title = models.CharField(max_length=38)
+
+
+class Message(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, blank=True)
+    content = models.CharField(max_length=1000)
+    created_date = models.DateTimeField(auto_now=True)

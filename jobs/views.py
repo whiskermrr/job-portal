@@ -9,6 +9,20 @@ def index(request):
     return render(request, 'jobs/index.html', {})
 
 
+def create_conversation(request, application_id):
+    if request.user.is_authenticated():
+        application = get_object_or_404(JobApplication, id=application_id)
+        if request.user == application.job_offer.user:
+            conversationForm = ConversationForm()
+            conversation = conversationForm.save(commit=False)
+            conversation.user_one = request.user
+            conversation.user_two = application.user
+            conversation.title = application.job_offer.title
+            conversation.save()
+
+            return redirect('jobs:index')
+
+
 
 def search(request):
     offers = None

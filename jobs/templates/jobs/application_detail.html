@@ -97,7 +97,7 @@ h1
 {% if application.job_offer.user == request.user %}
     <div class="row">
         <div class="title col-md-4 col-sm-offset-4">
-            <a class="btn btn-lg btn-primary" href="#" role="button">Contact</a>
+            <a class="btn btn-lg btn-primary" href="{% url 'jobs:create_conversation' application.id %}" role="button">Contact</a>
         </div>
     </div>
 {% endif %}

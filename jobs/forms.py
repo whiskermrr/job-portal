@@ -107,3 +107,9 @@ class JobApplyForm(forms.ModelForm):
                 if not value:
                     self.fields['%s' % field].widget = forms.HiddenInput()
 
+
+class ConversationForm(forms.ModelForm):
+    class Meta:
+        model = Conversation
+        fields = ['title']
+
