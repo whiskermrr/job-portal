@@ -28,7 +28,9 @@
             <h1 class="title">{{ offer.title }}</h1>
             <div class="location">
                 <p><i class="fa fa-location-arrow" aria-hidden="true"></i> Location: {{ offer.location }}</p>
-                <p><i class="fa fa-money" aria-hidden="true"></i> Salary: {{ offer.salary }}$</p>
+                {% if offer.salary %}
+                    <p><i class="fa fa-money" aria-hidden="true"></i>  Salary: {{ offer.salary }}$</p>
+                {% endif %}
             </div>
         </div>
     </div>

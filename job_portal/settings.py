@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     #my apps
     'jobs',
 
-    # 3th part apps
+    # 3th part apps (downloaded using pip)
     'registration',
     'crispy_forms',
 

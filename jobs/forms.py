@@ -4,6 +4,9 @@ from django.utils.translation import gettext as _
 from .models import *
 
 
+# w tym pliku sa formularze gdzie dodalem jak maja wygladac, labele i hinty
+
+
 class JobOfferForm(forms.ModelForm):
 
     class Meta:
